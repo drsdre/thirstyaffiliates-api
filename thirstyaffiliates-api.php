@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     ThirstyAffiliates API
  * Plugin URI:      https://github.com/drsdre
- * Description:     Enable WP Core Rest API v2 for ThirstyAffiliates data
+ * Description:     Enable ThirstyAffiliates data for use in WP Core Rest API v2
  * Author:          Andre Schuurman
  * Author URI:      https://github.com/drsdre
  * Text Domain:     thirstyaffiliates-api
