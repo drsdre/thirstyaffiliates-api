@@ -35,7 +35,7 @@ add_action( 'init', 'thirstylink_category_enable_rest_api', 25 );
 function thirstylink_category_enable_rest_api() {
 	global $wp_taxonomies;
 
-	$taxonomy_name = 'thirstylink_category';
+	$taxonomy_name = 'thirstylink-category';
 	if ( isset( $wp_taxonomies[ $taxonomy_name ] ) ) {
 		$wp_taxonomies[ $taxonomy_name ]->show_in_rest = true;
 		$wp_taxonomies[ $taxonomy_name ]->rest_base    = $taxonomy_name;
