@@ -7,7 +7,7 @@
  * Author URI:      https://github.com/drsdre
  * Text Domain:     thirstyaffiliates-api
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         1.0.1
  *
  * @package         thirstyaffiliates-api
  */
@@ -68,6 +68,7 @@ add_action( 'rest_api_init', function () {
 		'schema'          => [
 			'description' => __( 'Thirstylink title.' ),
 			'type'        => 'string',
+			'context'     => [ 'view', 'edit' ]
 		],
 	] );
 
@@ -80,7 +81,7 @@ add_action( 'rest_api_init', function () {
 		},
 		'update_callback' => function ( $data, $thirstylink_obj ) {
 			// Convert json back to serialized data
-			$thirstylink_thirstyData = serialize( json_decode( $data ) );
+			$thirstylink_thirstyData = serialize( json_decode( $data, true ) );
 
 			// If data is the same, skip updating
 			// Prevents: "NOTE: If the meta_value passed to this function is the same as the value that is already in the database, this function returns false."
@@ -101,6 +102,7 @@ add_action( 'rest_api_init', function () {
 		'schema'          => [
 			'description' => __( 'Thirstylink data.' ),
 			'type'        => 'string',
+			'context'     => [ 'view', 'edit' ]
 		],
 	] );
 } );
