@@ -73,12 +73,23 @@ add_action( 'rest_api_init', function () {
 
 	register_rest_field( 'thirstylink', 'thirstyData', [
 		'get_callback'    => function ( $thirstylink_data ) {
-			$thirstylink_data_obj = get_post_meta( $thirstylink_data['id'], 'thirstyData', true );
+			$thirstylink_thirstyData = get_post_meta( $thirstylink_data['id'], 'thirstyData', true );
 
-			return $thirstylink_data_obj;
+			// Convert to json to prevent illegal programminging injections
+			return json_encode( unserialize( $thirstylink_thirstyData ) );
 		},
 		'update_callback' => function ( $data, $thirstylink_obj ) {
-			$ret = update_post_meta( $thirstylink_obj->ID, 'thirstyData', $data);
+			// Convert json back to serialized data
+			$thirstylink_thirstyData = serialize( json_decode( $data ) );
+
+			// If data is the same, skip updating
+			// Prevents: "NOTE: If the meta_value passed to this function is the same as the value that is already in the database, this function returns false."
+			if ( get_post_meta( $thirstylink_obj->ID, 'thirstyData', true ) == $thirstylink_thirstyData ) {
+				return true;
+			}
+
+			// Update data
+			$ret = update_post_meta( $thirstylink_obj->ID, 'thirstyData', $thirstylink_thirstyData);
 
 			if ( false === $ret ) {
 				return new WP_Error( 'rest_thirstylink_thirstyData_failed', __( 'Failed to update data.' ),
